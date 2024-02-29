@@ -28,6 +28,7 @@ Ir para a URL
     ${PASSWORD}     FakerLibrary.PASSWORD
     Fill Text      css=input[data-testid='nome']     ${NOME}
     Set Global Variable    ${NOME}
+    Set Global Variable    ${EMAIL}
     Fill Text      css=input[data-testid='email']     ${EMAIL}
     Fill Text      css=input[data-testid='password']     ${PASSWORD} 
     #Cascata
@@ -42,6 +43,19 @@ Conferir o usuário que foi cadastrado
     Take Screenshot
     Get Text    h1     ==     Bem Vindo ${NOME}
     Get Element States    css=button[data-testid='logout']    validate    value & visible 
+
+Acessar a Lista de usuários
+    Click         css=a[data-testid='listarUsuarios']
+    Get Text    h1     ==     Lista dos usuários
+    Take Screenshot
+
+Conferir se o usuário aparece na lista
+    ${elemento}      Get Table Cell Element    css=table    "Nome"    "${EMAIL}"
+    ${usuario_nome}  Get Text  ${elemento}  ==  ${NOME}
+    Highlight Elements    ${elemento}
+    Take Screenshot       fullPage=${true}    
+
+    
     
 
 
