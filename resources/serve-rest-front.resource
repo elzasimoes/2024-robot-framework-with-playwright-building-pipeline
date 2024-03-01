@@ -2,9 +2,10 @@
 Library         Browser
 Library        FakerLibrary
 
+
 *** Variables ***
 ${BROWSER}        chromium
-${HEADLESS}        ${true}
+${HEADLESS}        ${false}
 ${URL}             https://front.serverest.dev/
 ${VIEW_PORT}        {'width': 1200, 'height': 800}
 
@@ -53,7 +54,33 @@ Conferir se o usuário aparece na lista
     ${elemento}      Get Table Cell Element    css=table    "Nome"    "${EMAIL}"
     ${usuario_nome}  Get Text  ${elemento}  ==  ${NOME}
     Highlight Elements    ${elemento}
-    Take Screenshot       fullPage=${true}    
+    Take Screenshot       fullPage=${true}   
+
+Acessar Cadastro de Produtos
+    Click         css=a[data-testid='cadastrarProdutos']
+    Get Text    h1     ==     Cadastro de Produtos
+    Take Screenshot
+
+Cadastrar um novo produto
+    Fill Text    css=input[data-testid='nome']     Xbox One
+    ${produto_price}    FakerLibrary.Random Number
+    Fill Text   css=input[data-testid='preco']     ${produto_price}
+    Set Global Variable    ${produto_price}
+    ${produto_description}    FakerLibrary.Text
+    Fill Text    css=textarea[data-testid='descricao']     ${produto_description}  
+    ${produto_quantity}    FakerLibrary.Random Number
+    Fill Text    css=input[data-testid='quantity']     ${produto_quantity}
+    Upload File By Selector   css=input[data-testid='imagem']    imagem.png
+    Click         css=button[data-testid='cadastarProdutos']
+
+Verificar se o produto está na lista
+    Get Text    h1     ==     Lista dos Produtos
+    ${elemento}      Get Table Cell Element    css=table    "Nome"    "${produto_price}"
+    ${usuario_nome}  Get Text  ${elemento}  ==  Xbox One
+    Highlight Elements    ${elemento}
+    Take Screenshot       fullPage=${true}
+
+     
 
     
     
