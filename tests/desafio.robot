@@ -1,5 +1,6 @@
 *** Settings ***
 Resource    ../resources/serve-rest-front.resource
+Suite Teardown    Close Browser    ALL
 
 *** Test Cases ***
 01 - Desafio: Conferir se o novo usuário é mostrado na listagem de usuários
