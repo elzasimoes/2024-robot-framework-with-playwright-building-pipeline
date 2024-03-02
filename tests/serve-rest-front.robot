@@ -1,5 +1,6 @@
 *** Settings ***
 Resource    ../resources/serve-rest-front.resource
+Suite Setup    Cadastrar Usuário e Logar  
 
 *** Test Cases ***
 Login com sucesso Server Rest front
@@ -14,3 +15,17 @@ Teste com Requisições https
     Criar usuário via API
     Logar com o usuário cadastrado via API
 
+Utilizando o Storage Armazenado no Contexto
+    Abrir o Site do Server Rest Front Logado
+    Acessar a Lista de usuários
+
+01 - Desafio: Conferir se o novo usuário é mostrado na listagem de usuários
+    Abrir o Site do Server Rest Front Logado
+    Acessar a Lista de usuários
+    Conferir se o usuário aparece na lista
+
+02 - Desafio: Desenvolva um teste para cadastrar e consultar produto
+    Abrir o Site do Server Rest Front Logado
+    Acessar Cadastro de Produtos
+    Cadastrar um novo produto
+    Verificar se o produto está na lista
