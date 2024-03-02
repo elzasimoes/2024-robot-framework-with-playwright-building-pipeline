@@ -47,7 +47,7 @@ jobs:
 
             - name: Download tests results
               if: always()
-              uses: actions/upload-artifact@v3
+              uses: actions/download-artifact@v1
               with:
                 name: results-${{ matrix.browser }}
 
