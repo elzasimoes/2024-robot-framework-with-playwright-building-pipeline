@@ -1,18 +1,24 @@
 *** Settings ***
 Library         Browser
 Library        FakerLibrary
+Library        DateTime
 
 
 *** Variables ***
 ${BROWSER}        chromium
-${HEADLESS}        ${false}
+${HEADLESS}        ${true}
 ${URL}             https://front.serverest.dev/
 ${VIEW_PORT}        {'width': 1200, 'height': 800}
 
 *** Keywords ***
 Abrir o navegador    
     New Browser    browser=${BROWSER}    headless=${HEADLESS} 
-    New Context    viewport=${VIEW_PORT} 
+    New Context    viewport=${VIEW_PORT}
+    ${NOW}         Get Current Date  result_format=%d-%m-%Y_%H%M%S 
+    &{recordVideo}    Create Dictionary        dir=./evidences/video/${NOW}   
+    New Context    viewport={'width': 1200, 'height': 800}
+    ...            recordVideo=&{recordVideo}
+    ...            tracing=${OUTPUT_DIR}/browser/traces/${NOW}
 
 Ir para a URL
     New Page        url=${URL}
@@ -72,6 +78,7 @@ Cadastrar um novo produto
     Fill Text    css=input[data-testid='quantity']     ${produto_quantity}
     Upload File By Selector   css=input[data-testid='imagem']    imagem.png
     Click         css=button[data-testid='cadastarProdutos']
+    Sleep    2
 
 Verificar se o produto está na lista
     Get Text    h1     ==     Lista dos Produtos

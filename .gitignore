@@ -1,0 +1,6 @@
+report.html
+playwright-log.txt
+output.xml
+log.html
+*.png
+browser
