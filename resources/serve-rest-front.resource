@@ -1,12 +1,14 @@
 *** Settings ***
-Library         Browser
+Library        Browser
+...            timeout=00:00:05
+...            enable_presenter_mode=${true}
 Library        FakerLibrary
 Library        DateTime
 
 
 *** Variables ***
 ${BROWSER}        chromium
-${HEADLESS}        ${true}
+${HEADLESS}        ${false}
 ${URL}             https://front.serverest.dev/
 ${VIEW_PORT}        {'width': 1200, 'height': 800}
 
@@ -33,9 +35,11 @@ Ir para a URL
     ${EMAIL}        FakerLibrary.Email
     ${NOME}         FakerLibrary.Name Female
     ${PASSWORD}     FakerLibrary.PASSWORD
+    Set Test Variable        ${NOME}
+    Set Test Variable        ${EMAIL}
+    Set Test Variable        ${PASSWORD}
+
     Fill Text      css=input[data-testid='nome']     ${NOME}
-    Set Global Variable    ${NOME}
-    Set Global Variable    ${EMAIL}
     Fill Text      css=input[data-testid='email']     ${EMAIL}
     Fill Text      css=input[data-testid='password']     ${PASSWORD} 
     #Cascata
@@ -87,7 +91,34 @@ Verificar se o produto está na lista
     Highlight Elements    ${elemento}
     Take Screenshot       fullPage=${true}
 
-     
+Criar usuário via API
+    ${EMAIL}        FakerLibrary.Email
+    ${NOME}         FakerLibrary.Name Female
+    ${PASSWORD}     FakerLibrary.PASSWORD
+    Set Test Variable        ${NOME}
+    Set Test Variable        ${EMAIL}
+    Set Test Variable        ${PASSWORD}
+
+    ${resposta}  Http    url=https://serverest.dev/usuarios
+    ...                  method=POST
+    ...                  body={"nome": "${NOME}","email": "${EMAIL}","password": "${PASSWORD}","administrador": "true"}   
+
+    Should Be Equal As Integers    ${resposta["status"]}    201
+
+Logar com o usuário cadastrado via API
+    ${resposta}  Http    url=https://serverest.dev/login
+    ...                  method=POST
+    ...                  body={"email": "${EMAIL}","password": "${PASSWORD}"}
+    
+    Should Be Equal As Integers    ${resposta["status"]}    200
+
+    LocalStorage Set Item    serverest/userEmail    ${EMAIL}
+    LocalStorage Set Item    serverest/userToken    ${resposta["body"]["authorization"]}
+    LocalStorage Set Item    serverest/userNome     ${NOME}
+
+    Go To    url=https://front.serverest.dev/admin/home
+
+    Take Screenshot
 
     
     

@@ -8,3 +8,9 @@ Login com sucesso Server Rest front
     Preencher os dados do usuário e cadastrar
     Conferir o usuário que foi cadastrado
 
+Teste com Requisições https
+    Abrir o navegador
+    Ir para a URL
+    Criar usuário via API
+    Logar com o usuário cadastrado via API
+
