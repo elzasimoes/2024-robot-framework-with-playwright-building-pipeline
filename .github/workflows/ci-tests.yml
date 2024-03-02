@@ -57,6 +57,7 @@ jobs:
               with:
                 report_path: results-${{ matrix.browser }}
                 gh_access_token: ${{ secrets.GITHUB_TOKEN }}
+                show_passed_tests: false
 
             
 
