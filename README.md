@@ -7,6 +7,10 @@ Este README fornece instruções sobre como preparar o ambiente para trabalhar c
 Certifique-se de que os seguintes itens estão instalados em seu ambiente de desenvolvimento:
 
 - **Python**: O Robot Framework é executado em Python, portanto, certifique-se de ter o Python instalado. Você pode baixar a versão mais recente em [python.org](https://www.python.org/downloads/).
+- Versão utilizada: 3.11.3
+
+- **NodeJs**: Acesse o site oficial do Node.js em [nodejs.org](https://nodejs.org/) e Instale a versão LTS.
+- Versão utilizada: v20.11.1
 
 
 ## Instalação do Robot Framework
@@ -24,7 +28,7 @@ pip install robotframework-faker
 ```
 
 ## DateTime Library
-- A DateTime Library é uma biblioteca para manipulação de datas e horas da BuiltIn. Importandoo:
+- A DateTime Library é uma biblioteca para manipulação de datas e horas da BuiltIn. Importando:
 
 ```bash
 Library           DateTime Library
@@ -40,7 +44,7 @@ pip install robotframework-browser
 
 ## Configuração Adicional para Browser Library
 
-- Para utilizar a Browser Library, é necessário baixar o navegador browser que você deseja automatizar. Execute o seguinte comando para realizar essa configuração:
+- Para utilizar a Browser Library, é necessário baixar o navegador browser que você deseja automatizar. Execute o seguinte comando para realizar essa configuração através do NodeJs:
 
 
 ```bash
@@ -69,13 +73,13 @@ Library        FakerLibrary
 Library        DateTime
 ```
 
-- enable_presenter_mode para habilitar o modo presenter, que executa lentamente mostrando os elementos encontrados através do Highlight
-- timeout para o tempo que ele falhará caso não encontre um elemento.
-- timeout default é 30 segundos.
+- enable_presenter_mode para habilitar o modo presenter, que executa lentamente mostrando os elementos encontrados através do Highlight;
+- timeout para o tempo que ele falhará caso não encontre um elemento;
+- timeout default é 30 segundos;
 
 ## Tipo de interações com elementos utlizando a Browser
 
-- Record selector axilia a pegar o css do elemento da página
+- Record selector consegue auxiliar na inspeção dos elementos da página.
 
 - Por texto
 ```bash
@@ -92,7 +96,8 @@ Click     css=.btn-link
 Click     xpath=//*[@id="root"]//button >> text="Cadastrar" 
 ```
 
-## Casos de teste criados
+## Casos de teste criados nesse repositório
+
 - Login com sucesso Server Rest front
 - Teste com Requisições https
 - Interagindo com Dropdown
@@ -104,5 +109,22 @@ Click     xpath=//*[@id="root"]//button >> text="Cadastrar"
 - Utilizando o Storage Armazenado no Contexto
 
 ## Executando testes no CI do Github Actions
+
+ - [Github Actions Started Guide](https://github.com/elzasimoes/2024-robot-framework-with-playwright-building-pipeline/tree/main/.github/workflows)
+ - [Teste Manual](https://github.com/elzasimoes/2024-robot-framework-with-playwright-building-pipeline/blob/main/.github/workflows/ci-tests-manual-desafio.yml)
+ - [Teste automatizado a cada push](https://github.com/elzasimoes/2024-robot-framework-with-playwright-building-pipeline/blob/main/.github/workflows/ci-tests.yml)
+
+### Robot Results
+| :white_check_mark: Passed | :x: Failed | :next_track_button: Skipped | Total | Pass % |
+| --- | --- | --- | :---: | :---: |
+| 11 | 0 | 0 | 11 | 100
+
+## Documentações
+
+ - [Início rápido para GitHub Actions](https://docs.github.com/pt/actions/quickstart)
+ - [Browser Library Keywords](https://marketsquare.github.io/robotframework-browser/Browser.html)
+ - [Library Faker](https://pypi.org/project/robotframework-faker/)
+
+
 
 
